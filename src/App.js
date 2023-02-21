@@ -1,24 +1,30 @@
-import logo from './logo.svg';
+import { Layout } from 'antd';
 import './App.css';
+import { Box } from './components/Box/Box';
+import { RateTable } from './components/RateTable/RateTable';
+import {
+  contentStyle,
+  footerStyle,
+  headerStyle,
+} from './App.styled';
+// import logo from './logo.svg';
+const { Header, Footer, Content } = Layout;
 
 function App() {
+  // const [symbol, setSymbol] = useState({});
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box
+      height="100%"
+      display="flex"
+      flexDirection="column"
+    >
+      <Header style={headerStyle}>Header</Header>
+      <Content style={contentStyle}>
+        <RateTable />
+      </Content>
+      <Footer style={footerStyle}>Footer</Footer>
+    </Box>
   );
 }
 
