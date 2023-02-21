@@ -10,6 +10,7 @@ export const StyledTable = styled.table`
 export const StyledTHead = styled.th`
   border: 1px solid #ffffff;
 `;
+
 export const StyledTData = styled.th`
   border: 1px solid #ffffff;
 `;
