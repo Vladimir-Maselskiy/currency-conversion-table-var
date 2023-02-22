@@ -1,5 +1,5 @@
 import { Empty, Layout } from 'antd';
-import './App.css';
+import './index.css';
 import { Box } from './components/Box/Box';
 import { RateTable } from './components/RateTable/RateTable';
 import {
