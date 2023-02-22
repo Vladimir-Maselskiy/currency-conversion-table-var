@@ -2,10 +2,13 @@ import { SwapOutlined } from '@ant-design/icons';
 import { Button, InputNumber, Select } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { initialCurrents } from '../../const';
+import { useRatesContext } from '../../context/store';
 import { Box } from '../Box/Box';
 import { StyledLabel } from './CurrencyConvertor.styled';
 
-export const CurrencyConvertor = ({ rates }) => {
+export const CurrencyConvertor = () => {
+  const { currentRate } = useRatesContext();
+
   const [valueTo, setValueTo] = useState('');
   const [valueFrom, setValueFrom] = useState('');
   const [currencyFrom, setCurrencyFrom] = useState(
@@ -35,14 +38,14 @@ export const CurrencyConvertor = ({ rates }) => {
   useEffect(() => {
     const nameFrom = currencyFrom + '_buy';
     const nameTo = currencyTo + '_sale';
-    const rateTo = rates[nameTo];
-    const rateFrom = rates[nameFrom];
+    const rateTo = currentRate[nameTo];
+    const rateFrom = currentRate[nameFrom];
     if (typeof rateTo === 'number') {
       setValueTo(
         +((valueFrom * rateFrom) / rateTo).toFixed(5)
       );
     }
-  }, [currencyFrom, currencyTo, valueFrom, rates]);
+  }, [currencyFrom, currencyTo, valueFrom, currentRate]);
 
   return (
     <Box

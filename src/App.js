@@ -72,7 +72,7 @@ function App() {
       <Content style={contentStyle}>
         {!isServerError ? (
           <>
-            <RateTable rates={rates} />
+            <RateTable ratesFromAPI24={rates} />
 
             <CurrencyConvertor rates={rates} />
           </>

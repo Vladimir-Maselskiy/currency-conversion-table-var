@@ -26,8 +26,6 @@ export const TableCell = ({
   const { currentRate, setCurrentRate } = useRatesContext();
   const [isEditable, setIsEditable] = useState(false);
 
-  console.log(currentRate);
-
   const onClickEdit = () => {
     setIsEditable(true);
   };
@@ -38,7 +36,6 @@ export const TableCell = ({
     form
       .validateFields([name])
       .then(resp => {
-        console.log('resp', resp);
         setIsEditable(false);
         setCurrentRate(prev => ({
           ...prev,
