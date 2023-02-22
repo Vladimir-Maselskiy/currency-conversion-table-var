@@ -1,25 +1,12 @@
-import React, { useEffect, useState } from 'react';
 import {
   StyledTable,
   StyledTData,
   StyledTHead,
 } from './RateTable.styled';
-
-import axios from 'axios';
-import { initialMessage } from '../../const';
-
 import { TableCell } from '../TableCell/TableCell';
 import { Form, message } from 'antd';
 
-export const RateTable = () => {
-  const [rates, setRates] = useState(initialMessage);
-  const [displaydRates, setDisplaydRates] =
-    useState(initialMessage);
-
-  useEffect(() => {
-    setDisplaydRates(rates);
-  }, [rates]);
-
+export const RateTable = ({ ratesFromAPI24 }) => {
   const [form] = Form.useForm();
 
   const onFinish = value => {
@@ -28,25 +15,8 @@ export const RateTable = () => {
 
   const onFinishFailed = value => {
     message.error('Submit failed!');
-    console.log('value', value);
   };
 
-  useEffect(() => {
-    axios
-      .get(
-        'https://scrapper-fs-dev.onrender.com/api/rate/privat24'
-      )
-      .then(resp => {
-        const res = resp.data.resp;
-
-        setRates({
-          eur_buy: +parseFloat(res[0].buy).toFixed(2),
-          eur_sale: +parseFloat(res[0].sale).toFixed(2),
-          usd_buy: +parseFloat(res[1].buy).toFixed(2),
-          usd_sale: +parseFloat(res[1].sale).toFixed(2),
-        });
-      });
-  }, []);
   return (
     <Form
       form={form}
@@ -74,12 +44,12 @@ export const RateTable = () => {
             <StyledTData>USD/UAH</StyledTData>
             <TableCell
               form={form}
-              data={displaydRates.usd_buy}
+              ratesFromAPI24={ratesFromAPI24}
               name="usd_buy"
             ></TableCell>
             <TableCell
               form={form}
-              data={displaydRates.usd_sale}
+              ratesFromAPI24={ratesFromAPI24}
               name="usd_sale"
             ></TableCell>
           </tr>
@@ -87,12 +57,12 @@ export const RateTable = () => {
             <StyledTData>EUR/UAH</StyledTData>
             <TableCell
               form={form}
-              data={displaydRates.eur_buy}
+              ratesFromAPI24={ratesFromAPI24}
               name={'eur_buy'}
             ></TableCell>
             <TableCell
               form={form}
-              data={displaydRates.eur_sale}
+              ratesFromAPI24={ratesFromAPI24}
               name={'eur_sale'}
             ></TableCell>
           </tr>
@@ -100,12 +70,12 @@ export const RateTable = () => {
             <StyledTData>BTC/USD</StyledTData>
             <TableCell
               form={form}
-              data={11500}
+              ratesFromAPI24={ratesFromAPI24}
               name={'btc_buy'}
             ></TableCell>
             <TableCell
               form={form}
-              data={11700}
+              ratesFromAPI24={ratesFromAPI24}
               name={'btc_sale'}
             ></TableCell>
           </tr>

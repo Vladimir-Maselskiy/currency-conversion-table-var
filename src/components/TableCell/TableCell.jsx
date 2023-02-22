@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Form,
@@ -16,14 +16,17 @@ import {
   StyledRate,
   StyledTData,
 } from './TableCell.styled';
+import { useRatesContext } from '../../context/store';
 
-export const TableCell = ({ data, form, name }) => {
+export const TableCell = ({
+  ratesFromAPI24,
+  form,
+  name,
+}) => {
+  const { currentRate, setCurrentRate } = useRatesContext();
   const [isEditable, setIsEditable] = useState(false);
-  const [displeydData, setDispleydData] = useState(data);
 
-  useEffect(() => {
-    setDispleydData(data);
-  }, [data]);
+  console.log(currentRate);
 
   const onClickEdit = () => {
     setIsEditable(true);
@@ -35,8 +38,12 @@ export const TableCell = ({ data, form, name }) => {
     form
       .validateFields([name])
       .then(resp => {
+        console.log('resp', resp);
         setIsEditable(false);
-        setDispleydData(resp[name].toFixed(2));
+        setCurrentRate(prev => ({
+          ...prev,
+          [name]: resp[name],
+        }));
         form.submit();
       })
       .catch(error => {});
@@ -55,7 +62,7 @@ export const TableCell = ({ data, form, name }) => {
             />
           }
         >
-          <StyledRate>{displeydData}</StyledRate>
+          <StyledRate>{currentRate[name]}</StyledRate>
         </Popover>
       ) : (
         <Popover
@@ -64,7 +71,6 @@ export const TableCell = ({ data, form, name }) => {
             <Space>
               <Button
                 shape="circle"
-                // htmlType="submit"
                 onClick={onClickSubmit}
                 icon={
                   <CheckOutlined
@@ -89,11 +95,11 @@ export const TableCell = ({ data, form, name }) => {
               { required: true },
               {
                 type: 'number',
-                max: data * 1.1,
-                min: data / 1.1,
+                max: ratesFromAPI24[name] * 1.1,
+                min: ratesFromAPI24[name] / 1.1,
               },
             ]}
-            initialValue={displeydData}
+            initialValue={currentRate[name]}
           >
             <InputNumber
               style={{ width: 100 }}

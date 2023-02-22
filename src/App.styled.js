@@ -1,8 +1,7 @@
 export const headerStyle = {
-  textAlign: 'center',
+  textAlign: 'start',
   color: '#fff',
-  height: 64,
-  paddingInline: 50,
+  height: 75,
   lineHeight: '64px',
   backgroundColor: '#7dbcea',
 };
@@ -16,7 +15,17 @@ export const contentStyle = {
 };
 
 export const footerStyle = {
-  textAlign: 'center',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: '#fff',
+  backgroundColor: '#7dbcea',
+  height: 100,
+};
+export const logoStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
   color: '#fff',
   backgroundColor: '#7dbcea',
   height: 100,
